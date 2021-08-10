@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+	
+	<context:component-scan base-package="com.xworkz.StudentEnrollApp" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="sessionFactory"
+	class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="basicDataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xworkz.StudentEnrollApp.entity.StudentEnrollEntity</value>
+			</list>
+		</property>
+	</bean>
+	
+	 <bean id="basicDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value= "jdbc:mysql://localhost:3306/studentenroll"></property>
+
+		<property name="username" value="root"></property>
+		<property name="password" value="manoj"></property>
+	</bean>
+	
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="javaMailSenderImpl">
+	<property name="username" value="manojkumarv39@gmail.com"></property>
+	<property name="password" value="manojmanu"></property>
+	<property name="host" value="smtp.gmail.com"></property>
+	<property name="port" value="587"></property>
+	<property name="javaMailProperties">
+	<props>
+	<prop key="mail.debug">true</prop>
+	<prop key="mail.smtp.auth">true</prop>
+	<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	<prop key="mail.smtp.starttls.enable">true</prop>
+	</props>
+	
+	</property>
+	</bean>
+	
+	
+	
+	
+	
+	</beans>
